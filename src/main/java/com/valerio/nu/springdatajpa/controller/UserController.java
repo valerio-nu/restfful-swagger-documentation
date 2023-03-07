@@ -3,6 +3,8 @@ package com.valerio.nu.springdatajpa.controller;
 import com.valerio.nu.springdatajpa.model.User;
 import com.valerio.nu.springdatajpa.service.SimpleUserImpl;
 import com.valerio.nu.springdatajpa.service.UserRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
@@ -19,6 +21,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
+@Api(value = "User Controller")
 public class UserController {
     private final SimpleUserImpl userService;
 
@@ -28,6 +31,7 @@ public class UserController {
 
     // Add
     @PostMapping(value = "/users")
+    @ApiOperation(value = "Create a user")
     public User Post(@RequestBody User params) {
         return userService.Post(params);
     }
@@ -36,6 +40,7 @@ public class UserController {
 
     // Get
     @GetMapping(value = "/users")
+    @ApiOperation(value = "Get all Users")
     public List<User> Get() {
 
         return userService.Get();
@@ -43,6 +48,7 @@ public class UserController {
 
     // Get By ID
     @GetMapping(value = "/users/{id}")
+    @ApiOperation(value = "Get  a user")
     public EntityModel<User> Get(@PathVariable int id) {
 
 
@@ -65,12 +71,14 @@ public class UserController {
 
     // Update
     @PutMapping(value = "/users/{id}")
+    @ApiOperation(value = "Update a user")
     public User Update(@PathVariable int id, @RequestBody User params) {
         return userService.Update(params, id);
     }
 
     // Delete
     @DeleteMapping(value = "/users/{id}")
+    @ApiOperation(value = "Delete a user")
     public String Delete(@PathVariable int id) {
         return userService.Delete(id);
     }
